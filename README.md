@@ -23,6 +23,7 @@ O gerenciamento de pacotes e do ambiente virtual Python é feito através do [uv
 Para inicializar o ambiente e instalar dependências de desenvolvimento (como ferramentas de linting e testes):
 ```bash
 uv sync
+```
 
 ## Trabalhos Práticos
 [TP1] - Busca em Espaço de Estados (Em andamento)
