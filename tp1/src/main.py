@@ -22,6 +22,17 @@ def imprimir_caminho(no_final: No, nome_busca: str):
     print(f"Passos totais: {len(caminho) - 1}")
     print(f"Tempo total gasto: {no_final.custo_acumulado} minutos\n")
 
+    # imprime os detalhes do trajeto e o passo a passo de execucao
+    print("Detalhes do trajeto:")
+    for i, no in enumerate(caminho):
+        if i == 0:
+            print(f"Estado Inicial: Todos na margem de origem {no.estado}")
+        else:
+            print(f"Passo {i}: {no.acao}")
+            print(
+                f"  └> Como ficou a ponte: {no.estado} | Relógio marcando: {no.custo_acumulado} min"
+            )
+
 
 if __name__ == "__main__":
     estado_inicial: Estado = (False, False, False, False, False)
