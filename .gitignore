@@ -1,0 +1,36 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments e ferramentas
+.venv
+.env
+.pytest_cache/
+.ruff_cache/
+
+# IDEs e Editores
+.vscode/
+.idea/
+.vs/
+
+# LaTeX (Arquivos auxiliares gerados ao compilar o PDF na pasta docs)
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.pdf
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+
+# OS files (Windows/Mac)
+Thumbs.db
+.DS_Store
