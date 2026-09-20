@@ -1,4 +1,4 @@
-from buscas import busca_bfs, busca_dfs
+from buscas import busca_bfs, busca_dfs, busca_custo_minimo, busca_a_estrela
 from model import Estado, No
 
 
@@ -48,3 +48,17 @@ if __name__ == "__main__":
     print("Executando Busca em Profundidade (DFS)...")
     resultado_dfs = busca_dfs(estado_inicial)
     imprimir_caminho(resultado_dfs, "DFS")
+    
+    print("\n" + "-" * 50 + "\n")
+
+    # Roda custo mínimo
+    print("Executando Busca de Custo Mínimo (Custo Uniforme / UCS)")
+    resultado_ucs = busca_custo_minimo(estado_inicial)
+    imprimir_caminho(resultado_ucs, "UCS")
+
+    print("\n" + "-" * 50 + "\n")
+
+    # Roda A*
+    print("Executando Busca A*")
+    resultado_a_estrela = busca_a_estrela(estado_inicial)
+    imprimir_caminho(resultado_a_estrela, "A*")
