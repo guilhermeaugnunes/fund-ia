@@ -1,11 +1,19 @@
 from buscas import busca_bfs, busca_dfs, busca_custo_minimo, busca_a_estrela
-from model import Estado, No
+from model import Estado, No, ResultadoBusca
 
 
-def imprimir_caminho(no_final: No, nome_busca: str):
+def imprimir_caminho(resultado: ResultadoBusca, nome_busca: str):
     """Refaz o caminho do nó final até a raiz e imprime no terminal"""
-    if not no_final:
-        print("\n[[nome_busca]] Nenhuma solução encontrada.")
+    no_final = resultado.no_final
+
+    if no_final is None:
+        motivo = (
+            "Limite de expansões atingido"
+            if resultado.limite_atingido
+            else "Nenhuma solução encontrada"
+        )
+        print(f"\n[{nome_busca}] {motivo}.")
+        print(f"Nós expandidos: {resultado.nos_expandidos}")
         return
 
     # refaz o caminho de trás pra frente usando o ponteiro 'pai'
@@ -20,7 +28,8 @@ def imprimir_caminho(no_final: No, nome_busca: str):
 
     print(f"\n--- Solução usando {nome_busca} ---")
     print(f"Passos totais: {len(caminho) - 1}")
-    print(f"Tempo total gasto: {no_final.custo_acumulado} minutos\n")
+    print(f"Tempo total gasto: {no_final.custo_acumulado} minutos")
+    print(f"Nós expandidos: {resultado.nos_expandidos}\n")
 
     # imprime os detalhes do trajeto e o passo a passo de execucao
     print("Detalhes do trajeto:")

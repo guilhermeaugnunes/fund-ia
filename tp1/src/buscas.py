@@ -1,17 +1,19 @@
 from collections import deque
 import heapq
 
-from model import Estado, No, Tempos
+from model import Estado, No, ResultadoBusca, Tempos
 from sucessor import gerar_sucessores
 
 OBJETIVO: Estado = (True, True, True, True, True)
+LIMITE_EXPANSOES_PADRAO = 100_000 # limite recomendado no enunciado pra evitar s buscas longas demais
 
 
-def busca_bfs(estado_inicial: Estado) -> No | None:
+def busca_bfs(estado_inicial: Estado, limite_expansoes: int = LIMITE_EXPANSOES_PADRAO) -> ResultadoBusca:
     """Busca em Largura (BFS) - Usa fila (FIFO)"""
     no_raiz = No(estado=estado_inicial)
     fronteira = deque([no_raiz])
     visitados = {estado_inicial}
+    nos_expandidos = 0
 
     while fronteira:
         # tira sempre do começo da fila (FIFO)
@@ -19,22 +21,28 @@ def busca_bfs(estado_inicial: Estado) -> No | None:
 
         # teste de objetivo:
         if no_atual.estado == OBJETIVO:
-            return no_atual
+            return ResultadoBusca(no_atual, nos_expandidos)
+
+        if nos_expandidos >= limite_expansoes:
+            return ResultadoBusca(None, nos_expandidos, limite_atingido=True)
 
         # expansão
+        # só conta como expandido se sucessor for gerado
+        nos_expandidos += 1
         for filho in gerar_sucessores(no_atual):
             if filho.estado not in visitados:
                 visitados.add(filho.estado)
                 fronteira.append(filho)  # entra no final da fila
 
-    return None
+    return ResultadoBusca(None, nos_expandidos)
 
 
-def busca_dfs(estado_inicial: Estado) -> No | None:
-    """Busca em Profundidade (BFS) - Usa pilha (LIFO)"""
+def busca_dfs(estado_inicial: Estado, limite_expansoes: int = LIMITE_EXPANSOES_PADRAO) -> ResultadoBusca:
+    """Busca em Profundidade (DFS) - Usa pilha (LIFO)"""
     no_raiz = No(estado=estado_inicial)
     fronteira = [no_raiz]
     visitados = {estado_inicial}
+    nos_expandidos = 0
 
     while fronteira:
         # tira sempre do final da fila (LIFO)
@@ -42,23 +50,28 @@ def busca_dfs(estado_inicial: Estado) -> No | None:
 
         # teste de objetivo:
         if no_atual.estado == OBJETIVO:
-            return no_atual
+            return ResultadoBusca(no_atual, nos_expandidos)
 
-        # expansão
+        if nos_expandidos >= limite_expansoes:
+            return ResultadoBusca(None, nos_expandidos, limite_atingido=True)
+
+        nos_expandidos += 1
+            # expansão
         for filho in gerar_sucessores(no_atual):
             if filho.estado not in visitados:
                 visitados.add(filho.estado)
                 fronteira.append(filho)  # entra no TOPO da fila
 
-    return None
+    return ResultadoBusca(None, nos_expandidos)
 
 
-def busca_custo_minimo(estado_inicial: Estado) -> No | None:
+def busca_custo_minimo(estado_inicial: Estado, limite_expansoes: int = LIMITE_EXPANSOES_PADRAO) -> ResultadoBusca:
     """Busca de Custo Mínimo (Custo Uniforme / UCS) - Usa fila de prioridade"""
     no_raiz = No(estado=estado_inicial)
     contador = 0
     fronteira = [(no_raiz.custo_acumulado, contador, no_raiz)]
     melhor_custo = {estado_inicial: 0}
+    nos_expandidos = 0
 
     while fronteira:
         # tira sempre o nó com menor custo acumulado da fila de prioridade
@@ -70,8 +83,12 @@ def busca_custo_minimo(estado_inicial: Estado) -> No | None:
 
         # teste de objetivo:
         if no_atual.estado == OBJETIVO:
-            return no_atual
+            return ResultadoBusca(no_atual, nos_expandidos)
 
+        if nos_expandidos >= limite_expansoes:
+            return ResultadoBusca(None, nos_expandidos, limite_atingido=True)
+
+        nos_expandidos += 1
         # expansão
         for filho in gerar_sucessores(no_atual):
             if (
@@ -82,7 +99,7 @@ def busca_custo_minimo(estado_inicial: Estado) -> No | None:
                 contador += 1
                 heapq.heappush(fronteira, (filho.custo_acumulado, contador, filho))
 
-    return None
+    return ResultadoBusca(None, nos_expandidos)
 
 
 def heuristica(estado: Estado) -> int:
@@ -100,8 +117,7 @@ def heuristica(estado: Estado) -> int:
     # retorna o tempo da pessoa mais lenta que ainda está na origem (false)
     return max(pessoas_na_origem)
 
-
-def busca_a_estrela(estado_inicial: Estado) -> No | None:
+def busca_a_estrela(estado_inicial: Estado, limite_expansoes: int = LIMITE_EXPANSOES_PADRAO) -> ResultadoBusca:
     """Busca A* - Usa fila de prioridade ordenada pelo tempo gasto somado à previsão de tempo restante"""
     no_raiz = No(estado=estado_inicial)
     contador = 0
@@ -112,6 +128,7 @@ def busca_a_estrela(estado_inicial: Estado) -> No | None:
     fronteira = [(f_inicial, contador, no_raiz)]
     
     melhor_custo = {estado_inicial: no_raiz.custo_acumulado}
+    nos_expandidos = 0
 
     while fronteira:
         # sempre tira o nó com a menor estimativa de tempo total da fila de prioridade
@@ -123,9 +140,13 @@ def busca_a_estrela(estado_inicial: Estado) -> No | None:
 
         # teste de objetivo:
         if no_atual.estado == OBJETIVO:
-            return no_atual
+            return ResultadoBusca(no_atual, nos_expandidos)
+
+        if nos_expandidos >= limite_expansoes:
+            return ResultadoBusca(None, nos_expandidos, limite_atingido=True)
 
         # expansão
+        nos_expandidos += 1
         for filho in gerar_sucessores(no_atual):
             # verifica se nunca esteve nesse estado ou se o caminho atual levou menos tempo do que o anterior
             if (
@@ -140,4 +161,4 @@ def busca_a_estrela(estado_inicial: Estado) -> No | None:
                 
                 contador += 1
                 heapq.heappush(fronteira, (f_filho, contador, filho))
-    return None
+    return ResultadoBusca(None, nos_expandidos)
