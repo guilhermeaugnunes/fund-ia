@@ -1,5 +1,5 @@
-from buscas import busca_bfs, busca_dfs, busca_custo_minimo, busca_a_estrela
-from model import Estado, No, ResultadoBusca
+from buscas import busca_a_estrela, busca_bfs, busca_custo_minimo, busca_dfs
+from model import Estado, ResultadoBusca
 
 
 def imprimir_caminho(resultado: ResultadoBusca, nome_busca: str):
@@ -57,7 +57,7 @@ if __name__ == "__main__":
     print("Executando Busca em Profundidade (DFS)...")
     resultado_dfs = busca_dfs(estado_inicial)
     imprimir_caminho(resultado_dfs, "DFS")
-    
+
     print("\n" + "-" * 50 + "\n")
 
     # Roda custo mínimo

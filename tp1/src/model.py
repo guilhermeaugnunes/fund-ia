@@ -23,9 +23,12 @@ class No:
     acao: str | None = None
     # não é necessário no problema de BFS e DFS, mas ajudará a modelar o próximo
     custo_acumulado: int = 0
+
+
 @dataclass
 class ResultadoBusca:
     """Resultado pra facilitar o que foi gerado pelos quatro algoritmos de busca"""
+
     no_final: No | None
     nos_expandidos: int
     limite_atingido: bool = False

@@ -1,14 +1,18 @@
-from collections import deque
 import heapq
+from collections import deque
 
 from model import Estado, No, ResultadoBusca, Tempos
 from sucessor import gerar_sucessores
 
 OBJETIVO: Estado = (True, True, True, True, True)
-LIMITE_EXPANSOES_PADRAO = 100_000 # limite recomendado no enunciado pra evitar s buscas longas demais
+LIMITE_EXPANSOES_PADRAO = (
+    100_000  # limite recomendado no enunciado pra evitar s buscas longas demais
+)
 
 
-def busca_bfs(estado_inicial: Estado, limite_expansoes: int = LIMITE_EXPANSOES_PADRAO) -> ResultadoBusca:
+def busca_bfs(
+    estado_inicial: Estado, limite_expansoes: int = LIMITE_EXPANSOES_PADRAO
+) -> ResultadoBusca:
     """Busca em Largura (BFS) - Usa fila (FIFO)"""
     no_raiz = No(estado=estado_inicial)
     fronteira = deque([no_raiz])
@@ -37,7 +41,9 @@ def busca_bfs(estado_inicial: Estado, limite_expansoes: int = LIMITE_EXPANSOES_P
     return ResultadoBusca(None, nos_expandidos)
 
 
-def busca_dfs(estado_inicial: Estado, limite_expansoes: int = LIMITE_EXPANSOES_PADRAO) -> ResultadoBusca:
+def busca_dfs(
+    estado_inicial: Estado, limite_expansoes: int = LIMITE_EXPANSOES_PADRAO
+) -> ResultadoBusca:
     """Busca em Profundidade (DFS) - Usa pilha (LIFO)"""
     no_raiz = No(estado=estado_inicial)
     fronteira = [no_raiz]
@@ -56,7 +62,7 @@ def busca_dfs(estado_inicial: Estado, limite_expansoes: int = LIMITE_EXPANSOES_P
             return ResultadoBusca(None, nos_expandidos, limite_atingido=True)
 
         nos_expandidos += 1
-            # expansão
+        # expansão
         for filho in gerar_sucessores(no_atual):
             if filho.estado not in visitados:
                 visitados.add(filho.estado)
@@ -65,7 +71,9 @@ def busca_dfs(estado_inicial: Estado, limite_expansoes: int = LIMITE_EXPANSOES_P
     return ResultadoBusca(None, nos_expandidos)
 
 
-def busca_custo_minimo(estado_inicial: Estado, limite_expansoes: int = LIMITE_EXPANSOES_PADRAO) -> ResultadoBusca:
+def busca_custo_minimo(
+    estado_inicial: Estado, limite_expansoes: int = LIMITE_EXPANSOES_PADRAO
+) -> ResultadoBusca:
     """Busca de Custo Mínimo (Custo Uniforme / UCS) - Usa fila de prioridade"""
     no_raiz = No(estado=estado_inicial)
     contador = 0
@@ -105,28 +113,31 @@ def busca_custo_minimo(estado_inicial: Estado, limite_expansoes: int = LIMITE_EX
 def heuristica(estado: Estado) -> int:
     """Calcula a heurística admissível para o problema"""
     pessoas_na_origem = []
-    
+
     # pega apenas os índices de 0 a 3, ignorando o índice 4 que representa a tocha
     for i in range(4):
         if estado[i] is False:
             pessoas_na_origem.append(Tempos[i])
-            
+
     if not pessoas_na_origem:
         return 0
-    
+
     # retorna o tempo da pessoa mais lenta que ainda está na origem (false)
     return max(pessoas_na_origem)
 
-def busca_a_estrela(estado_inicial: Estado, limite_expansoes: int = LIMITE_EXPANSOES_PADRAO) -> ResultadoBusca:
+
+def busca_a_estrela(
+    estado_inicial: Estado, limite_expansoes: int = LIMITE_EXPANSOES_PADRAO
+) -> ResultadoBusca:
     """Busca A* - Usa fila de prioridade ordenada pelo tempo gasto somado à previsão de tempo restante"""
     no_raiz = No(estado=estado_inicial)
     contador = 0
-    
+
     h_inicial = heuristica(estado_inicial)
     f_inicial = no_raiz.custo_acumulado + h_inicial
-    
+
     fronteira = [(f_inicial, contador, no_raiz)]
-    
+
     melhor_custo = {estado_inicial: no_raiz.custo_acumulado}
     nos_expandidos = 0
 
@@ -154,11 +165,11 @@ def busca_a_estrela(estado_inicial: Estado, limite_expansoes: int = LIMITE_EXPAN
                 or filho.custo_acumulado < melhor_custo[filho.estado]
             ):
                 melhor_custo[filho.estado] = filho.custo_acumulado
-                
+
                 # calcula a nova previsão de tempo total para o nó filho
                 h_filho = heuristica(filho.estado)
                 f_filho = filho.custo_acumulado + h_filho
-                
+
                 contador += 1
                 heapq.heappush(fronteira, (f_filho, contador, filho))
     return ResultadoBusca(None, nos_expandidos)

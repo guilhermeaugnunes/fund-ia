@@ -6,8 +6,10 @@ from buscas import busca_a_estrela, busca_bfs, busca_custo_minimo, busca_dfs
 from model import Estado, ResultadoBusca
 
 ESTADO_INICIAL: Estado = (False, False, False, False, False)
-REPETICOES = 10000 # mesmo com 90000 repetições, o tempo varia bem pouco entre as execuções.
-AQUECIMENTO = 500 # só pra não considerar o tempo das  primeiras execuções que são mais lentas por causa de cache, carregamento do código e etc, 
+REPETICOES = (
+    10000  # mesmo com 90000 repetições, o tempo varia bem pouco entre as execuções.
+)
+AQUECIMENTO = 500  # só pra não considerar o tempo das  primeiras execuções que são mais lentas por causa de cache, carregamento do código e etc,
 # testado com 500, 0, 1000 e 5000 de aquecimento, mas pouca variação pra esse problema que é muito simples
 
 AlgoritmoBusca = Callable[[Estado], ResultadoBusca]
