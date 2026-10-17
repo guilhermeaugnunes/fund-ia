@@ -34,3 +34,6 @@ wheels/
 # OS files (Windows/Mac)
 Thumbs.db
 .DS_Store
+
+# Resultados da busca local - TP 2
+tp2/resultados_busca_local/
