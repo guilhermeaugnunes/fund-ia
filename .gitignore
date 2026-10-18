@@ -35,5 +35,7 @@ wheels/
 Thumbs.db
 .DS_Store
 
-# Resultados da busca local - TP 2
+# Resultados e figuras - TP 2
 tp2/resultados_busca_local/
+tp2/resultados/
+tp2/figuras/
