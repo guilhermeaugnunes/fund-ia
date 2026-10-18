@@ -1,10 +1,9 @@
-"""Algoritmo Genético para otimização de permutações.
+"""Algoritmo Genético para otimização de sequências de permutação.
 
-Projetado conforme as diretrizes do Trabalho Prático 2 de Fundamentos de IA (UFMG):
-- Arquitetura desacoplada: Algoritmo != Problema (Seção 2.1).
-- Orçamento estrito de avaliações com ContadorAvaliacoes (Seção 3 e 6).
-- Operadores: Seleção por Torneio / Roleta, Order Crossover (OX), Mutação por Troca (Swap) e Elitismo.
-- Monitoramento de diversidade da população e curva da média de fitness da população.
+Implementa seleção por torneio e roleta, Order Crossover (OX), mutação por troca (Swap)
+e elitismo configurável. Monitora diversidade populacional e curvas de convergência.
+Desacoplado do domínio do problema: opera sobre qualquer objeto com métodos
+`solucao_aleatoria()` e `avaliar(solucao)`.
 """
 
 from __future__ import annotations

@@ -1,0 +1,23 @@
+\begin{table*}[t]
+\centering
+\caption{Desempenho comparativo dos algoritmos nas instâncias do problema de sequenciamento de manutenção.}
+\label{tab:resultados_tp2}
+\small
+\begin{tabular}{llccccccc}
+\hline
+\textbf{Instância} & \textbf{Algoritmo} & $N$ & \textbf{Média $\pm$ Desv. Padrão} & \textbf{Mediana [Q1; Q3]} & \textbf{Melhor $h$} & \textbf{Pior $h$} & \textbf{Tempo (s)} & \textbf{Gap Ref.} \\
+\hline
+Pequena & GREEDY & 30 & 1875.0 $\pm$ 0.0 & 1875.0 & 1875.0 & 1875.0 & 0.800s & +0.00% \\
+Pequena & SA & 30 & 1877.5 $\pm$ 11.5 & 1875.0 & 1875.0 & 1937.0 & 1.069s & +0.00% \\
+Pequena & AG & 30 & 2179.8 $\pm$ 222.2 & 2239.0 & 1875.0 & 2783.0 & 1.537s & +0.00% \\
+\hline
+Media & GREEDY & 30 & 24725.5 $\pm$ 1637.5 & 24696.5 & 21786.0 & 27567.0 & 6.368s & +33.39% \\
+Media & SA & 30 & 31805.3 $\pm$ 2986.9 & 31758.0 & 23686.0 & 36819.0 & 10.314s & +45.03% \\
+Media & AG & 30 & 31358.9 $\pm$ 3541.9 & 31644.5 & 26195.0 & 37105.0 & 12.711s & +60.39% \\
+\hline
+Grande & GREEDY & 10 & 150879.0 $\pm$ 10830.2 & 150541.0 & 133940.0 & 165194.0 & 35.955s & +121.69% \\
+Grande & SA & 10 & 257020.6 $\pm$ 23842.7 & 264048.5 & 213144.0 & 281807.0 & 56.245s & +252.79% \\
+Grande & AG & 10 & 171400.1 $\pm$ 20555.2 & 166996.0 & 146933.0 & 211539.0 & 66.976s & +143.20% \\
+\hline
+\end{tabular}
+\end{table*}

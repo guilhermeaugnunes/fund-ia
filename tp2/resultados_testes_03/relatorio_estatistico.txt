@@ -1,0 +1,93 @@
+=========================================================================================================
+RELATÓRIO ESTATÍSTICO COMPLETO - TP2 FUNDAMENTOS DE INTELIGÊNCIA ARTIFICIAL (UFMG)
+Arquivo analisado: C:\Users\raodo\Desktop\Pedro\3_ Estudo\1_ Programação\FUND IA\T2\fund-ia\tp2\resultados_testes_03\resultados_gerais.csv
+=========================================================================================================
+
+1. TABELA PRINCIPAL DE DESEMPENHO (SEÇÃO 5 DO ENUNCIADO)
+---------------------------------------------------------------------------------------------------------
+Instância | Algoritmo | N   | Média ± DesvPad        | Mediana [Q1; Q3]       | Melhor h   | Pior h     | Gap Ref (Melhor)
+---------------------------------------------------------------------------------------------------------
+pequena   | GREEDY  | 30  |     1875.0 ± 0.0      |   1875.0 [1875.0; 1875.0] |     1875.0 |     1875.0 | +0.00%          
+pequena   | SA      | 30  |     1877.5 ± 11.5     |   1875.0 [1875.0; 1875.0] |     1875.0 |     1937.0 | +0.00%          
+pequena   | AG      | 30  |     2179.8 ± 222.2    |   2239.0 [1937.0; 2317.0] |     1875.0 |     2783.0 | +0.00%          
+---------------------------------------------------------------------------------------------------------
+media     | GREEDY  | 30  |    24725.5 ± 1637.5   |  24696.5 [23365.0; 25833.0] |    21786.0 |    27567.0 | +33.39%         
+media     | SA      | 30  |    31805.3 ± 2986.9   |  31758.0 [29867.0; 34086.0] |    23686.0 |    36819.0 | +45.03%         
+media     | AG      | 30  |    31358.9 ± 3541.9   |  31644.5 [27773.0; 33915.0] |    26195.0 |    37105.0 | +60.39%         
+---------------------------------------------------------------------------------------------------------
+grande    | GREEDY  | 10  |   150879.0 ± 10830.2  | 150541.0 [145741.0; 160287.0] |   133940.0 |   165194.0 | +121.69%        
+grande    | SA      | 10  |   257020.6 ± 23842.7  | 264048.5 [239234.0; 274649.0] |   213144.0 |   281807.0 | +252.79%        
+grande    | AG      | 10  |   171400.1 ± 20555.2  | 166996.0 [153163.0; 186853.0] |   146933.0 |   211539.0 | +143.20%        
+---------------------------------------------------------------------------------------------------------
+
+2. EFICIÊNCIA COMPUTACIONAL, TEMPO DE PAREDE E TAXA DE SUCESSO NO ÓTIMO GLOBAL
+---------------------------------------------------------------------------------------------------------
+Instância | Algoritmo | Tempo Médio (s) | Avaliações   | Throughput (eval/s)  | Sucesso h*=1875
+---------------------------------------------------------------------------------------------------------
+pequena   | GREEDY  |           0.800 | 50000        |              62464.6 | 30/30 (100.0%) 
+pequena   | SA      |           1.069 | 50000        |              46786.7 | 28/30 (93.3%)  
+pequena   | AG      |           1.537 | 50000        |              32534.7 | 4/30 (13.3%)   
+---------------------------------------------------------------------------------------------------------
+media     | GREEDY  |           6.368 | 150000       |              23555.5 | N/A            
+media     | SA      |          10.314 | 150000       |              14543.6 | N/A            
+media     | AG      |          12.711 | 150000       |              11801.0 | N/A            
+---------------------------------------------------------------------------------------------------------
+grande    | GREEDY  |          35.955 | 300000       |               8343.8 | N/A            
+grande    | SA      |          56.245 | 300000       |               5333.8 | N/A            
+grande    | AG      |          66.976 | 300000       |               4479.2 | N/A            
+---------------------------------------------------------------------------------------------------------
+
+3. TESTES NÃO-PARAMÉTRICOS DE MANN-WHITNEY (COMPARAÇÕES PAR A PAR)
+Objetivo: Testar se as diferenças de desempenho entre algoritmos possuem significância estatística.
+---------------------------------------------------------------------------------------------------------
+Instância | Comparação           | U        | z-score  | p-valor      | Tamanho Efeito (r)   | Conclusão (alpha=0.05)
+---------------------------------------------------------------------------------------------------------
+pequena   | GREEDY vs SA            |    420.0 |    1.402 | 0.1608       | 0.181 (Pequeno    ) | Sem Dif. Significativa
+pequena   | GREEDY vs AG            |     60.0 |    6.370 | < 0.001      | 0.822 (Grande     ) | Diferença Significativa
+pequena   | SA vs AG            |     66.5 |    6.152 | < 0.001      | 0.794 (Grande     ) | Diferença Significativa
+---------------------------------------------------------------------------------------------------------
+media     | GREEDY vs SA            |     20.0 |    6.350 | < 0.001      | 0.820 (Grande     ) | Diferença Significativa
+media     | GREEDY vs AG            |     25.0 |    6.276 | < 0.001      | 0.810 (Grande     ) | Diferença Significativa
+media     | SA vs AG            |    407.0 |    0.628 | 0.5298       | 0.081 (Desprezível) | Sem Dif. Significativa
+---------------------------------------------------------------------------------------------------------
+grande    | GREEDY vs SA            |      0.0 |    3.742 | < 0.001      | 0.837 (Grande     ) | Diferença Significativa
+grande    | GREEDY vs AG            |     17.0 |    2.457 | 0.0140       | 0.549 (Grande     ) | Diferença Significativa
+grande    | SA vs AG            |      0.0 |    3.742 | < 0.001      | 0.837 (Grande     ) | Diferença Significativa
+---------------------------------------------------------------------------------------------------------
+
+4. EXPERIMENTO ADICIONAL OBRIGATÓRIO DO AG (SEÇÃO 5 E 6 DO ENUNCIADO)
+Pergunta: 'A recombinação (OX) realmente consegue combinar bons trechos de dois pais em um filho melhor?'
+---------------------------------------------------------------------------------------------------------
+  Configuração: AG_com_OX_Pc0.9                     | Média =    27113.9 ± 2833.3 | Mediana =  26614.0 | Melhor =  22457.0
+  Configuração: AG_sem_OX_Pc0.0_apenas_mutacao      | Média =    31705.5 ± 3020.4 | Mediana =  32766.0 | Melhor =  24803.0
+
+  >> Teste Estatístico Mann-Whitney entre AG com OX vs AG sem OX:
+     Estatística U = 32.0 | z-score = 3.318 | p-valor = < 0.001 | Efeito r = 0.606
+     [CONCLUSÃO CIENTÍFICA]: A recombinação Order Crossover (OX) é ESTATISTICAMENTE SUPERIOR (p < 0.05) à busca puramente mutacional.
+     Isso comprova a hipótese de que blocos de adjacência e sequenciamento transmitidos entre pais produzem filhos melhores.
+---------------------------------------------------------------------------------------------------------
+
+5. CÓDIGO LATEX FORMATADO PARA O RELATÓRIO FINAL:
+\begin{table*}[t]
+\centering
+\caption{Desempenho comparativo dos algoritmos nas instâncias do problema de sequenciamento de manutenção.}
+\label{tab:resultados_tp2}
+\small
+\begin{tabular}{llccccccc}
+\hline
+\textbf{Instância} & \textbf{Algoritmo} & $N$ & \textbf{Média $\pm$ Desv. Padrão} & \textbf{Mediana [Q1; Q3]} & \textbf{Melhor $h$} & \textbf{Pior $h$} & \textbf{Tempo (s)} & \textbf{Gap Ref.} \\
+\hline
+Pequena & GREEDY & 30 & 1875.0 $\pm$ 0.0 & 1875.0 & 1875.0 & 1875.0 & 0.800s & +0.00% \\
+Pequena & SA & 30 & 1877.5 $\pm$ 11.5 & 1875.0 & 1875.0 & 1937.0 & 1.069s & +0.00% \\
+Pequena & AG & 30 & 2179.8 $\pm$ 222.2 & 2239.0 & 1875.0 & 2783.0 & 1.537s & +0.00% \\
+\hline
+Media & GREEDY & 30 & 24725.5 $\pm$ 1637.5 & 24696.5 & 21786.0 & 27567.0 & 6.368s & +33.39% \\
+Media & SA & 30 & 31805.3 $\pm$ 2986.9 & 31758.0 & 23686.0 & 36819.0 & 10.314s & +45.03% \\
+Media & AG & 30 & 31358.9 $\pm$ 3541.9 & 31644.5 & 26195.0 & 37105.0 & 12.711s & +60.39% \\
+\hline
+Grande & GREEDY & 10 & 150879.0 $\pm$ 10830.2 & 150541.0 & 133940.0 & 165194.0 & 35.955s & +121.69% \\
+Grande & SA & 10 & 257020.6 $\pm$ 23842.7 & 264048.5 & 213144.0 & 281807.0 & 56.245s & +252.79% \\
+Grande & AG & 10 & 171400.1 $\pm$ 20555.2 & 166996.0 & 146933.0 & 211539.0 & 66.976s & +143.20% \\
+\hline
+\end{tabular}
+\end{table*}

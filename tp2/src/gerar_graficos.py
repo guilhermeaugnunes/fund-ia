@@ -1,13 +1,10 @@
-"""Geração de Gráficos e Visualizações - TP2 IA (UFMG)
+"""Geração de gráficos a partir dos resultados experimentais.
 
-Gera as figuras obrigatórias do relatório conforme Seção 3, 5 e 6 do PDF:
-1. Boxplots comparativos dos 3 algoritmos por instância (fig_boxplots.png)
-2. Curvas de convergência da mediana do melhor h (fig_convergencia.png)
-3. Curva de perda de diversidade do AG: melhor h vs média da população (fig_ag_populacao.png)
-4. Gráfico do experimento adicional do AG: Crossover OX vs Apenas Mutação (fig_adicional_crossover.png)
+Produz boxplots comparativos por instância, curvas de convergência (mediana do melhor h),
+gráficos de perda de diversidade do Algoritmo Genético (melhor vs. média da população)
+e boxplot do experimento de análise do operador de recombinação (OX vs. apenas mutação).
 
-Se a biblioteca matplotlib estiver instalada, salva os gráficos diretamente em formato PNG.
-Caso contrário, gera tabelas de pontos prontas para visualização ou plotagem externa.
+Requer matplotlib. Salva as figuras em formato PNG no diretório configurado.
 """
 
 from __future__ import annotations
@@ -18,8 +15,8 @@ import sys
 from collections import defaultdict
 
 
-def tentar_gerar_graficos(diretorio_dados: pathlib.Path = pathlib.Path("tp2/resultados"),
-                          diretorio_figuras: pathlib.Path = pathlib.Path("tp2/figuras")):
+def tentar_gerar_graficos(diretorio_dados: pathlib.Path = pathlib.Path("tp2/resultados_testes_03"),
+                          diretorio_figuras: pathlib.Path = pathlib.Path("tp2/figuras_testes_03")):
     diretorio_figuras.mkdir(parents=True, exist_ok=True)
 
     try:
@@ -119,4 +116,7 @@ def tentar_gerar_graficos(diretorio_dados: pathlib.Path = pathlib.Path("tp2/resu
 
 
 if __name__ == "__main__":
-    tentar_gerar_graficos()
+    tentar_gerar_graficos(
+        diretorio_dados=pathlib.Path("tp2/resultados_testes_03"),
+        diretorio_figuras=pathlib.Path("tp2/figuras_testes_03"),
+    )

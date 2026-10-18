@@ -1,15 +1,9 @@
-"""Protocolo Experimental Geral e Unificado - TP2 IA (UFMG)
+"""Orquestrador de experimentos de otimização combinatória.
 
-Executa as 9 combinações obrigatórias:
-3 Algoritmos (Greedy Descent, Simulated Annealing, Genetic Algorithm)
-x 3 Instâncias (Pequena, Média, Grande)
+Executa combinações de algoritmos (Greedy Descent, Simulated Annealing, Genetic Algorithm)
+por instância de problema, com repetições independentes e orçamentos configuráveis.
 
-Garante o orçamento exato e as repetições independentes da Seção 3 do enunciado:
-- Pequena (n=12):  50.000 avaliações, 30 execuções independentes
-- Média   (n=50): 150.000 avaliações, 30 execuções independentes
-- Grande (n=150): 300.000 avaliações, 10 execuções independentes
-
-Salva todos os resultados em arquivos CSV estruturados.
+Persiste todos os resultados em arquivos CSV estruturados para análise posterior.
 """
 
 from __future__ import annotations
@@ -55,7 +49,7 @@ def executar_protocolo(
     algoritmos: list[str],
     repeticoes_override: int | None = None,
     orcamento_override: int | None = None,
-    diretorio_saida: pathlib.Path = pathlib.Path("tp2/resultados"),
+    diretorio_saida: pathlib.Path = pathlib.Path("tp2/resultados_testes_03"),
     operador_busca_local: str = "swap",
     estrategia_greedy: str = "first",
     intervalo_historico: int = 1000,
@@ -69,7 +63,7 @@ def executar_protocolo(
     metricas_populacao_ag: list[dict[str, Any]] = []
 
     print("=" * 80)
-    print("INICIANDO PROTOCOLO EXPERIMENTAL - TP2 FUNDAMENTOS DE IA")
+    print("INICIANDO PROTOCOLO EXPERIMENTAL")
     print(f"Instâncias: {instancias} | Algoritmos: {algoritmos}")
     print(f"Diretório de saída: {diretorio_saida.resolve()}")
     print("=" * 80)
@@ -88,7 +82,7 @@ def executar_protocolo(
             custos_algo = []
 
             for rep in range(n_repeticoes):
-                seed = 1000 + rep
+                seed = 3000 + (rep * 3)
                 t_inicio = time.perf_counter()
 
                 if algo == "greedy":
@@ -113,11 +107,11 @@ def executar_protocolo(
                         problema,
                         orcamento=orcamento,
                         tamanho_populacao=100,
-                        taxa_cruzamento=0.9,
-                        taxa_mutacao=0.1,
+                        taxa_cruzamento=0.80,
+                        taxa_mutacao=0.20,
                         metodo_selecao="torneio",
-                        tamanho_torneio=3,
-                        elitismo=1,
+                        tamanho_torneio=7,
+                        elitismo=3,
                         seed=seed,
                         intervalo_historico=intervalo_historico,
                     )
@@ -223,13 +217,12 @@ def executar_experimento_adicional_crossover(
     instancia: str = "media",
     repeticoes: int = 15,
     orcamento: int = 100_000,
-    diretorio_saida: pathlib.Path = pathlib.Path("tp2/resultados"),
+    diretorio_saida: pathlib.Path = pathlib.Path("tp2/resultados_testes_03"),
 ) -> list[dict[str, Any]]:
-    """Experimento Adicional Obrigatório do AG (Seção 5 / Seção 6):
-    
-    Testa a hipótese sobre o papel da recombinação (crossover OX):
-    'A recombinação consegue combinar bons trechos de dois pais em um filho melhor?'
-    Compara o AG padrão (Pc = 0.9) vs AG puramente mutacional sem cruzamento (Pc = 0.0).
+    """Experimento comparativo do operador de recombinação no Algoritmo Genético.
+
+    Compara o AG padrão (Pc = 0.9) contra o AG sem cruzamento (Pc = 0.0),
+    avaliando se a recombinação OX contribui para a qualidade da solução final.
     """
     diretorio_saida.mkdir(parents=True, exist_ok=True)
     pasta_instancias = pathlib.Path(__file__).resolve().parents[1] / "instancias"
@@ -253,7 +246,7 @@ def executar_experimento_adicional_crossover(
                 orcamento=orcamento,
                 tamanho_populacao=100,
                 taxa_cruzamento=pc,
-                taxa_mutacao=0.15,
+                taxa_mutacao=0.20,
                 seed=seed,
             )
             dt = time.perf_counter() - t0
@@ -303,7 +296,7 @@ if __name__ == "__main__":
     parser.add_argument("--repeticoes", type=int, default=1, help="Número de execuções independentes")
     parser.add_argument("--protocolo", action="store_true", help="Executa com repetições e orçamentos do PDF (30/30/10)")
     parser.add_argument("--experimento-crossover", action="store_true", help="Executa o experimento adicional de validação do OX")
-    parser.add_argument("--saida", type=pathlib.Path, default=pathlib.Path("tp2/resultados"))
+    parser.add_argument("--saida", type=pathlib.Path, default=pathlib.Path("tp2/resultados_testes_03"))
     args = parser.parse_args()
 
     instancias_alvo = list(CONFIG_INSTANCIAS.keys()) if args.instancia == "todas" else [args.instancia]

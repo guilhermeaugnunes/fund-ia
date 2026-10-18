@@ -108,7 +108,7 @@ if __name__ == '__main__':
     p.add_argument('--instancia', choices=(*INSTANCIAS, 'todas'), default='pequena')
     p.add_argument('--orcamento', type=int, default=None, help='Sobrescreve o orçamento (para testes rápidos)')
     p.add_argument('--repeticoes', type=int, default=1, help='Número de sementes por configuração')
-    p.add_argument('--protocolo', action='store_true', help='Usa 30/30/10 execuções conforme o enunciado')
+    p.add_argument('--protocolo', action='store_true', help='Usa 30/30/10 execuções com orçamentos oficiais')
     p.add_argument('--sem-sa', action='store_true')
     p.add_argument('--saida', type=pathlib.Path, default=pathlib.Path('tp2/resultados_busca_local'))
     args = p.parse_args()
