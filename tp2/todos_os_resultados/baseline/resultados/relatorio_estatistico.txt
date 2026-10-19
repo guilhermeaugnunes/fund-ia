@@ -1,0 +1,92 @@
+=========================================================================================================
+RELATÓRIO ESTATÍSTICO COMPLETO - TP2 FUNDAMENTOS DE INTELIGÊNCIA ARTIFICIAL (UFMG)
+Arquivo analisado: C:\Users\raodo\Desktop\Pedro\3_ Estudo\1_ Programação\FUND IA\T2\fund-ia\tp2\resultados\resultados_gerais.csv
+=========================================================================================================
+
+1. TABELA PRINCIPAL DE DESEMPENHO (SEÇÃO 5 DO ENUNCIADO)
+---------------------------------------------------------------------------------------------------------
+Instância | Algoritmo | N   | Média ± DesvPad        | Mediana [Q1; Q3]       | Melhor h   | Pior h     | Gap Ref (Melhor)
+---------------------------------------------------------------------------------------------------------
+pequena   | GREEDY  | 30  |     1875.0 ± 0.0      |   1875.0 [1875.0; 1875.0] |     1875.0 |     1875.0 | +0.00%          
+pequena   | SA      | 30  |     1883.6 ± 25.5     |   1875.0 [1875.0; 1875.0] |     1875.0 |     1971.0 | +0.00%          
+pequena   | AG      | 30  |     2178.8 ± 194.7    |   2220.5 [1937.0; 2311.0] |     1937.0 |     2621.0 | +3.31%          
+---------------------------------------------------------------------------------------------------------
+media     | GREEDY  | 30  |    24567.0 ± 1474.9   |  24817.5 [23646.0; 25406.0] |    21838.0 |    28726.0 | +33.71%         
+media     | SA      | 30  |    32522.8 ± 3943.2   |  32119.5 [29999.0; 35246.0] |    25841.0 |    40746.0 | +58.22%         
+media     | AG      | 30  |    31233.4 ± 4939.2   |  30726.5 [26520.0; 35356.0] |    23289.0 |    41946.0 | +42.60%         
+---------------------------------------------------------------------------------------------------------
+grande    | GREEDY  | 10  |   152656.4 ± 14466.9  | 152289.0 [150109.0; 165283.0] |   126587.0 |   168207.0 | +109.52%        
+grande    | SA      | 10  |   277946.7 ± 37762.3  | 278187.0 [246234.0; 316148.0] |   220592.0 |   339194.0 | +265.12%        
+grande    | AG      | 10  |   185446.9 ± 16996.3  | 191794.5 [173166.0; 196590.0] |   146527.0 |   202030.0 | +142.53%        
+---------------------------------------------------------------------------------------------------------
+
+2. EFICIÊNCIA COMPUTACIONAL, TEMPO DE PAREDE E TAXA DE SUCESSO NO ÓTIMO GLOBAL
+---------------------------------------------------------------------------------------------------------
+Instância | Algoritmo | Tempo Médio (s) | Avaliações   | Throughput (eval/s)  | Sucesso h*=1875
+---------------------------------------------------------------------------------------------------------
+pequena   | GREEDY  |           0.635 | 50000        |              78777.0 | 30/30 (100.0%) 
+pequena   | SA      |           1.013 | 50000        |              49373.5 | 26/30 (86.7%)  
+pequena   | AG      |           1.321 | 50000        |              37840.6 | 0/30 (0.0%)    
+---------------------------------------------------------------------------------------------------------
+media     | GREEDY  |           5.932 | 150000       |              25286.2 | N/A            
+media     | SA      |           9.457 | 150000       |              15861.0 | N/A            
+media     | AG      |          11.354 | 150000       |              13211.2 | N/A            
+---------------------------------------------------------------------------------------------------------
+grande    | GREEDY  |          33.869 | 300000       |               8857.7 | N/A            
+grande    | SA      |          53.179 | 300000       |               5641.3 | N/A            
+grande    | AG      |          62.182 | 300000       |               4824.6 | N/A            
+---------------------------------------------------------------------------------------------------------
+
+3. TESTES NÃO-PARAMÉTRICOS DE MANN-WHITNEY (COMPARAÇÕES PAR A PAR)
+Objetivo: Testar se as diferenças de desempenho entre algoritmos possuem significância estatística.
+---------------------------------------------------------------------------------------------------------
+Instância | Comparação           | U        | z-score  | p-valor      | Tamanho Efeito (r)   | Conclusão (alpha=0.05)
+---------------------------------------------------------------------------------------------------------
+pequena   | GREEDY vs SA            |    390.0 |    2.034 | 0.0419       | 0.263 (Pequeno    ) | Diferença Significativa
+pequena   | GREEDY vs AG            |      0.0 |    7.119 | < 0.001      | 0.919 (Grande     ) | Diferença Significativa
+pequena   | SA vs AG            |     22.5 |    6.604 | < 0.001      | 0.853 (Grande     ) | Diferença Significativa
+---------------------------------------------------------------------------------------------------------
+media     | GREEDY vs SA            |     11.0 |    6.483 | < 0.001      | 0.837 (Grande     ) | Diferença Significativa
+media     | GREEDY vs AG            |     87.0 |    5.359 | < 0.001      | 0.692 (Grande     ) | Diferença Significativa
+media     | SA vs AG            |    377.0 |    1.072 | 0.2838       | 0.138 (Pequeno    ) | Sem Dif. Significativa
+---------------------------------------------------------------------------------------------------------
+grande    | GREEDY vs SA            |      0.0 |    3.742 | < 0.001      | 0.837 (Grande     ) | Diferença Significativa
+grande    | GREEDY vs AG            |      8.0 |    3.137 | 0.0017       | 0.701 (Grande     ) | Diferença Significativa
+grande    | SA vs AG            |      0.0 |    3.742 | < 0.001      | 0.837 (Grande     ) | Diferença Significativa
+---------------------------------------------------------------------------------------------------------
+
+4. EXPERIMENTO ADICIONAL OBRIGATÓRIO DO AG (SEÇÃO 5 E 6 DO ENUNCIADO)
+Pergunta: 'A recombinação (OX) realmente consegue combinar bons trechos de dois pais em um filho melhor?'
+---------------------------------------------------------------------------------------------------------
+  Configuração: AG_com_OX_Pc0.9                     | Média =    29838.3 ± 3730.4 | Mediana =  29971.0 | Melhor =  23286.0
+  Configuração: AG_sem_OX_Pc0.0_apenas_mutacao      | Média =    31580.4 ± 3466.3 | Mediana =  32166.0 | Melhor =  25741.0
+
+  >> Teste Estatístico Mann-Whitney entre AG com OX vs AG sem OX:
+     Estatística U = 87.0 | z-score = 1.037 | p-valor = 0.2998 | Efeito r = 0.189
+     [CONCLUSÃO CIENTÍFICA]: Não houve evidência de superioridade estatística isolada do crossover sob as condições testadas.
+---------------------------------------------------------------------------------------------------------
+
+5. CÓDIGO LATEX FORMATADO PARA O RELATÓRIO FINAL:
+\begin{table*}[t]
+\centering
+\caption{Desempenho comparativo dos algoritmos nas instâncias do problema de sequenciamento de manutenção.}
+\label{tab:resultados_tp2}
+\small
+\begin{tabular}{llccccccc}
+\hline
+\textbf{Instância} & \textbf{Algoritmo} & $N$ & \textbf{Média $\pm$ Desv. Padrão} & \textbf{Mediana [Q1; Q3]} & \textbf{Melhor $h$} & \textbf{Pior $h$} & \textbf{Tempo (s)} & \textbf{Gap Ref.} \\
+\hline
+Pequena & GREEDY & 30 & 1875.0 $\pm$ 0.0 & 1875.0 & 1875.0 & 1875.0 & 0.635s & +0.00% \\
+Pequena & SA & 30 & 1883.6 $\pm$ 25.5 & 1875.0 & 1875.0 & 1971.0 & 1.013s & +0.00% \\
+Pequena & AG & 30 & 2178.8 $\pm$ 194.7 & 2220.5 & 1937.0 & 2621.0 & 1.321s & +3.31% \\
+\hline
+Media & GREEDY & 30 & 24567.0 $\pm$ 1474.9 & 24817.5 & 21838.0 & 28726.0 & 5.932s & +33.71% \\
+Media & SA & 30 & 32522.8 $\pm$ 3943.2 & 32119.5 & 25841.0 & 40746.0 & 9.457s & +58.22% \\
+Media & AG & 30 & 31233.4 $\pm$ 4939.2 & 30726.5 & 23289.0 & 41946.0 & 11.354s & +42.60% \\
+\hline
+Grande & GREEDY & 10 & 152656.4 $\pm$ 14466.9 & 152289.0 & 126587.0 & 168207.0 & 33.869s & +109.52% \\
+Grande & SA & 10 & 277946.7 $\pm$ 37762.3 & 278187.0 & 220592.0 & 339194.0 & 53.179s & +265.12% \\
+Grande & AG & 10 & 185446.9 $\pm$ 16996.3 & 191794.5 & 146527.0 & 202030.0 & 62.182s & +142.53% \\
+\hline
+\end{tabular}
+\end{table*}

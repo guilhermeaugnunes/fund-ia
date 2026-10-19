@@ -241,7 +241,7 @@ def greedy_random_restart(problema: Any, orcamento: int, operador: str = "swap",
 
 def calibrar_temperatura(problema: Any, contador: ContadorAvaliacoes,
                          rng: random.Random, operador: str = "swap",
-                         amostras: int = 100, aceitacao_inicial: float = 0.80,
+                         amostras: int = 100, aceitacao_inicial: float = 0.65,
                          aceitacao_final: float = 0.01) -> dict[str, float]:
     """Estima escala de delta h de movimentos piores, contando todas as avaliações
 
