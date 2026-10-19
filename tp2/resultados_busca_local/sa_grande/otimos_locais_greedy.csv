@@ -1,0 +1,15 @@
+﻿instancia,algoritmo,operador,estrategia,seed,indice_otimo_local,fitness_otimo_local
+grande,greedy,swap,first,1000,1,163569.0
+grande,greedy,swap,first,1000,2,153617.0
+grande,greedy,swap,first,1000,3,159146.0
+grande,greedy,swap,first,1001,1,163533.0
+grande,greedy,swap,first,1001,2,160902.0
+grande,greedy,swap,first,1001,3,131064.0
+grande,greedy,insertion,first,1000,1,78795.0
+grande,greedy,insertion,first,1001,1,102579.0
+grande,greedy,2opt,first,1000,1,98613.0
+grande,greedy,2opt,first,1000,2,108297.0
+grande,greedy,2opt,first,1001,1,101226.0
+grande,greedy,2opt,first,1001,2,104370.0
+grande,greedy,2opt,first,1001,3,109794.0
+grande,greedy,2opt,first,1001,4,107381.0

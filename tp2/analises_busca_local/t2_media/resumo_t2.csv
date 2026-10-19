@@ -1,0 +1,7 @@
+﻿instancia,operador,estrategia,repeticoes,fitness_medio,fitness_desvio_padrao,fitness_mediana,fitness_minimo,tempo_medio_s,passos_melhoria_medio,reinicios_medio,otimos_locais_distintos_medio,avaliacoes_min,avaliacoes_max
+media,2opt,best,30,20796.8,1777.614,21068.0,16947.0,11.5717,120.93,2.0,2.0,150000.0,150000.0
+media,2opt,first,30,18297.033,662.48,18455.5,16811.0,13.764,2644.37,18.83,18.83,150000.0,150000.0
+media,insertion,best,30,19650.633,2094.096,19141.0,16175.0,11.3549,62.0,1.0,1.0,150000.0,150000.0
+media,insertion,first,30,17313.7,556.343,17172.0,16551.0,14.2503,1681.0,10.53,10.53,150000.0,150000.0
+media,swap,best,30,28797.933,3032.165,28735.5,22179.0,6.1881,120.87,1.97,1.97,150000.0,150000.0
+media,swap,first,30,24567.0,1474.92,24817.5,21838.0,8.1254,2322.5,17.57,17.57,150000.0,150000.0

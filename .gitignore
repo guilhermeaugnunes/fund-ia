@@ -35,9 +35,16 @@ wheels/
 Thumbs.db
 .DS_Store
 
-# Resultados e figuras - TP 2
-tp2/resultados_busca_local/
+# Ignorar apenas os testes preliminares da Busca Local
+tp2/resultados_busca_local/teste_*/
+tp2/analises_busca_local/teste_*/
+
+# Demais diretórios ignorados
 tp2/resultados/
 tp2/figuras/
 tp2/resultados_paralelos/
 tp2/figuras_paralelas/
+
+# Arquivos temporários
+*.tmp
+*.bak
