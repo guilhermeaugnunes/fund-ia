@@ -2,7 +2,9 @@ import time
 
 import numpy as np
 
+from src.agente import AgenteQLearning, criar_agenda_epsilon
 from src.ambiente import Ambiente
+from src.treinamento import extrair_tabela_politica, treinar_marvin
 
 
 def test_episodio_completo_1000_passos():
@@ -56,3 +58,22 @@ def test_desempenho_500_episodios():
 
     print(f"\nTempo para 500 episódios (500.000 passos): {duracao:.2f}s")
     assert duracao < 5.0
+
+
+def test_treinamento_marvin_convergencia_basica():
+    """Verifica a integração completa Ambiente + AgenteQLearning em 60 episódios."""
+    env = Ambiente(tamanho=50, dens_lixo=0.20, dens_parede=0.10, seed=42)
+    agente = AgenteQLearning(alpha=0.1, gamma=0.9, q0=0.0, seed=42)
+    agenda = criar_agenda_epsilon("exponencial", epsilon_0=1.0, epsilon_min=0.01, decaimento=0.95)
+
+    hist = treinar_marvin(env, agente, agenda, n_episodios=60, horizonte=1000)
+
+    assert hist["recompensas"].shape == (60,)
+    assert hist["lixos_coletados"].shape == (60,)
+    assert 0.0 < hist["fracao_visitada"] <= 1.0
+    # Nos últimos episódios a recompensa média deve ser positiva e superior aos iniciais
+    assert np.mean(hist["recompensas"][-10:]) > np.mean(hist["recompensas"][:10])
+
+    tabela = extrair_tabela_politica(agente)
+    assert len(tabela) == 162
+
